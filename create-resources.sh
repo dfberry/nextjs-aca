@@ -30,34 +30,34 @@ done < $DOTENV_PATH
 
 # Create Azure resource group
 az group create \
---subscription $AZURE_SUBSCRIPTION_ID \
+--subscription $AZURE_SUB_ID \
 --name $AZURE_RESOURCE_GROUP \
 --location $AZURE_LOCATION
 
 # Create Azure container registry
 az acr create \
---subscription $AZURE_SUBSCRIPTION_ID \
+--subscription $AZURE_SUB_ID \
 --resource-group $AZURE_RESOURCE_GROUP \
---name $AZURE_CONTAINER_REGISTRY_NAME \
+--name $AZURE_CON_REG_NAME \
 --sku Basic
 
 # Create Azure Container App environment
-az containerapp env create --subscription $AZURE_SUBSCRIPTION_ID \
+az containerapp env create --subscription $AZURE_SUB_ID \
 --resource-group $AZURE_RESOURCE_GROUP \
---name $AZURE_CONTAINER_APP_ENV_NAME \
+--name $AZURE_CON_APP_ENV \
 --location $AZURE_LOCATION
 
 # Create Azure container app
 az containerapp create \
---subscription $AZURE_SUBSCRIPTION_ID \
+--subscription $AZURE_SUB_ID \
 --resource-group $AZURE_RESOURCE_GROUP \
---name $AZURE_CONTAINER_APP_NAME \
---environment ${AZURE_CONTAINER_APP_ENV_NAME}
+--name $AZURE_CON_APP \
+--environment ${AZURE_CON_APP_ENV}
 
 # Enable ingress for Azure Container App
 az containerapp ingress enable \
---subscription $AZURE_SUBSCRIPTION_ID \
---name $AZURE_CONTAINER_APP_NAME \
+--subscription $AZURE_SUB_ID \
+--name $AZURE_CON_APP \
 --resource-group $AZURE_RESOURCE_GROUP \
 --target-port $TARGET_PORT \
 --transport auto \
@@ -65,25 +65,25 @@ az containerapp ingress enable \
 
 # Set replica count for Azure Container App
 az containerapp update \
-  --subscription $AZURE_SUBSCRIPTION_ID \
+  --subscription $AZURE_SUB_ID \
   --resource-group $AZURE_RESOURCE_GROUP \
-  --name $AZURE_CONTAINER_APP_NAME \
+  --name $AZURE_CON_APP \
   --min-replicas 1 \
   --max-replicas 2
 
 # Update CORS settings for Azure Container App to allow anything from github.com
 az containerapp update \
-  --subscription $AZURE_SUBSCRIPTION_ID \
+  --subscription $AZURE_SUB_ID \
   --resource-group $AZURE_RESOURCE_GROUP \
-  --name $AZURE_CONTAINER_APP_NAME \
+  --name $AZURE_CON_APP \
   --cors-allowed-origins "https://github.com" \
   --cors-allowed-methods "GET,POST,OPTIONS" \
   --cors-allowed-headers "*"
 
 # Set environment variables for Azure Container App
 az containerapp update \
-  --subscription $AZURE_SUBSCRIPTION_ID \
+  --subscription $AZURE_SUB_ID \
   --resource-group $AZURE_RESOURCE_GROUP \
-  --name $AZURE_CONTAINER_APP_NAME \
+  --name $AZURE_CON_APP \
   --build-env-vars "PORT=$TARGET_PORT" \
   --set-env-vars "PORT=$TARGET_PORT"

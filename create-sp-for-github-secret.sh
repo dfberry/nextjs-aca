@@ -25,9 +25,9 @@ done < $DOTENV_PATH
 
 # Create the service principal and save the JSON output to a file
 az ad sp create-for-rbac \
-  --name "$AZURE_CONTAINER_APP_NAME-CICD" \
+  --name "$AZURE_CON_APP-CICD" \
   --role contributor \
-  --scopes /subscriptions/$AZURE_SUBSCRIPTION_ID \
+  --scopes /subscriptions/$AZURE_SUB_ID \
   --sdk-auth > $OUTPUT_PATH
 
 echo "Service principal credentials saved to $OUTPUT_PATH"

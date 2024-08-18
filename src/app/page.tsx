@@ -2,10 +2,12 @@ import Image from "next/image";
 import { CONFIG } from "@/lib/config";
 
 export default function Home() {
-  const redirect_uri = encodeURIComponent(CONFIG.GH_OAUTH_REDIRECT_URI);
-  const URL = `https://github.com/login/oauth/authorize?client_id=${CONFIG.GH_OAUTH_CLIENT_ID}&redirect_uri=${redirect_uri}`;
+  const redirect_uri = encodeURIComponent(CONFIG.GH_REDIRECT_URI);
+  const URL = `https://github.com/login/oauth/authorize?client_id=${CONFIG.GH_CLIENT_ID}&redirect_uri=${redirect_uri}`;
 
   const envVars = process.env;
+
+  console.log(CONFIG);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

@@ -30,16 +30,16 @@ done < $DOTENV_PATH
 
 # Capture the revision value in ACA
 ACA_REVISION=$(az containerapp show \
-  --subscription $AZURE_SUBSCRIPTION_ID \
+  --subscription $AZURE_SUB_ID \
   -g $AZURE_RESOURCE_GROUP \
-  -n $AZURE_CONTAINER_APP_NAME \
+  -n $AZURE_CON_APP \
   --query properties.latestRevisionName)
 
 # Capture the container name in ACA
 ACA_CONTAINER=$(az containerapp show \
-  --subscription $AZURE_SUBSCRIPTION_ID \
+  --subscription $AZURE_SUB_ID \
   -g $AZURE_RESOURCE_GROUP \
-  -n $AZURE_CONTAINER_APP_NAME \
+  -n $AZURE_CON_APP \
   --query properties.template.containers[0].image)
 
 

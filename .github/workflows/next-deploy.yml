@@ -3,7 +3,7 @@ name: Hello Deploy to ACA
 # Use --debug to Azure CLI to get more information
 
 env:
-  AZURE_CONTAINER_APP_NAME: helloworldapp
+  AZURE_CON_APP: helloworldapp
   AZURE_GROUP_NAME: nextjs-hello-world-2
   AZURE_CONTAINER_REGISTRY: helloworldreg
   IMAGE_NAME: nextjs-hello-world
@@ -67,12 +67,12 @@ jobs:
         with:
           inlineScript: |
             az config set extension.use_dynamic_install=yes_without_prompt
-            az containerapp registry set -n ${{ env.AZURE_CONTAINER_APP_NAME }} -g ${{ env.AZURE_GROUP_NAME }} --server ${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }} --password ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }} 
-            az containerapp update -n ${{ env.AZURE_CONTAINER_APP_NAME }} -g ${{ env.AZURE_GROUP_NAME }} --image ${{ env.IMAGE }} 
+            az containerapp registry set -n ${{ env.AZURE_CON_APP }} -g ${{ env.AZURE_GROUP_NAME }} --server ${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }} --username ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }} --password ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }} 
+            az containerapp update -n ${{ env.AZURE_CON_APP }} -g ${{ env.AZURE_GROUP_NAME }} --image ${{ env.IMAGE }} 
 
       - name: Get FQDN of the deployed containerapp
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            FQDN=$(az containerapp show -n ${{ env.AZURE_CONTAINER_APP_NAME }} -g ${{ env.AZURE_GROUP_NAME }} --query properties.configuration.ingress.fqdn -o tsv)
+            FQDN=$(az containerapp show -n ${{ env.AZURE_CON_APP }} -g ${{ env.AZURE_GROUP_NAME }} --query properties.configuration.ingress.fqdn -o tsv)
             echo "FQDN=${FQDN}" >> $GITHUB_ENV      
