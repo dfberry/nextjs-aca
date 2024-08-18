@@ -1,6 +1,11 @@
 import Image from "next/image";
+import { CONFIG } from "@/lib/config";
 
 export default function Home() {
+
+  const redirect_uri = encodeURIComponent(CONFIG.GH_OAUTH_REDIRECT_URI);
+  const URL = `https://github.com/login/oauth/authorize?client_id=${CONFIG.GH_OAUTH_CLIENT_ID}&redirect_uri=${redirect_uri}`;
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -108,6 +113,7 @@ export default function Home() {
           </p>
         </a>
       </div>
+      <a href={URL} >GitHub Login</a>
     </main>
   );
 }
