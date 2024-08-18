@@ -24,6 +24,18 @@ export default function Home() {
             ))}
         </div>
       </div>
+      <div className="container mx-auto p-12 overflow-auto">
+        <h1>CONFIG</h1>
+        <div className="p-12">
+          {Object.entries(CONFIG)
+            .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+            .map(([key, value]) => (
+              <div key={key} className="mb-2">
+                <strong>{key}:</strong> {value}
+              </div>
+            ))}
+        </div>
+      </div>      
     </main>
   );
 }
